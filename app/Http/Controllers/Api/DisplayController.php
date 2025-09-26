@@ -116,7 +116,7 @@ class DisplayController extends Controller
                 'approved' => $display->approved,
                 'verified' => $display->verified,
                 'tags' => [],
-                'links' => [],
+                'links' => $display->links,
             ];
         }
 

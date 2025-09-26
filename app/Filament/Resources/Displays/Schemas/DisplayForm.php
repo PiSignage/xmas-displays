@@ -36,14 +36,18 @@ class DisplayForm
 
                 Section::make('Social')
                     ->schema([
-                        TextInput::make('website'),
+                        TextInput::make('website_uri')
+                            ->label('Website'),
                         TextInput::make('public_email')
                             ->label('Public contact email'),
                         Grid::make(3)
                             ->schema([
-                                TextInput::make('facebook'),
-                                TextInput::make('twitter'),
-                                TextInput::make('instagram'),
+                                TextInput::make('facebook_link')
+                                    ->label('Facebook'),
+                                TextInput::make('twitter_link')
+                                    ->label('Twitter'),
+                                TextInput::make('instagram_link')
+                                    ->label('Instagram'),
                             ])
                             ->columnSpanFull(),
                     ])

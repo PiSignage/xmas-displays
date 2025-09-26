@@ -11,6 +11,8 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('display/{display:slug}', [SiteController::class, 'viewDisplay'])->name('display.view');
+
 Route::post('search', [SiteController::class, 'lookup'])->name('lookup');
 
 Route::controller(GoogleAuthController::class)->group(function () {

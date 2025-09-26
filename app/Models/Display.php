@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Observers\DisplayObserver;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,7 @@ class Display extends Model
 {
     protected $fillable = [
         'name',
+        'slug',
         'description',
         'image',
         'longitude',
@@ -18,6 +20,11 @@ class Display extends Model
         'approved',
         'verified',
         'images',
+        'website_uri',
+        'public_email',
+        'facebook_link',
+        'twitter_link',
+        'instagram_link',
     ];
 
     protected function casts(): array
@@ -30,6 +37,8 @@ class Display extends Model
             'images' => 'array',
         ];
     }
+
+    protected $appends = ['links'];
 
     public function scopeDistance($query, $lat, $lng, $radius = 100, $unit = 'km')
     {
@@ -68,5 +77,41 @@ class Display extends Model
                 return $miles;
             }
         }
+    }
+
+    public function links(): Attribute
+    {
+        $links = [];
+        if (!is_null($this->website_uri)) {
+            $links[] = [
+                'icon' => 'website',
+                'url' => $this->website_uri,
+            ];
+        }
+
+        if (!is_null($this->facebook_link)) {
+            $links[] = [
+                'icon' => 'facebook',
+                'url' => $this->facebook_link,
+            ];
+        }
+
+        if (!is_null($this->twitter_link)) {
+            $links[] = [
+                'icon' => 'twitter',
+                'url' => $this->twitter_link,
+            ];
+        }
+
+        if (!is_null($this->instagram_link)) {
+            $links[] = [
+                'icon' => 'instagram',
+                'url' => $this->instagram_link,
+            ];
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value) => $links,
+        );
     }
 }

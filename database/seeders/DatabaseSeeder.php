@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             $displayName = str_replace(["&#039;", "&amp;"], ["'", "&"], $display->properties->name);
             Display::create([
                 'name' => $displayName,
+                'slug' => $display->properties->identifier,
                 'description' => strip_tags($display->properties->desc),
                 'image' => isset($display->properties->img[0]) ? 'https://lightfind.uk/' . $display->properties->img[0] : 'https://placehold.co/600x400',
                 'longitude' => $display->geometry->coordinates[1],

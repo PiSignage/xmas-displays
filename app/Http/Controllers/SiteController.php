@@ -43,4 +43,11 @@ class SiteController extends Controller
             ]
         ]);
     }
+
+    public function viewDisplay(Display $display)
+    {
+        return view('display.view', [
+            'display' => $display,
+        ]);
+    }
 }
